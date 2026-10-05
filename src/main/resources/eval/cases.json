@@ -1,0 +1,121 @@
+[
+  {
+    "id": "count-commits",
+    "question": "How many commits are in the repository?",
+    "cypher": "MATCH (c:Commit) RETURN count(c) AS total",
+    "orderSensitive": false,
+    "requires": ["Commit"]
+  },
+  {
+    "id": "top-contributors",
+    "question": "Who are the top 5 contributors by number of commits?",
+    "cypher": "MATCH (d:Developer)-[:AUTHORED]->(c:Commit) RETURN d.name AS name, count(c) AS commits ORDER BY commits DESC LIMIT 5",
+    "orderSensitive": true,
+    "requires": ["Commit"]
+  },
+  {
+    "id": "latest-commit-author",
+    "question": "Who authored the most recent commit?",
+    "cypher": "MATCH (d:Developer)-[:AUTHORED]->(c:Commit) RETURN d.name AS name ORDER BY c.timestamp DESC LIMIT 1",
+    "orderSensitive": true,
+    "requires": ["Commit"]
+  },
+  {
+    "id": "hotspots",
+    "question": "What are the 5 most frequently changed files?",
+    "cypher": "MATCH (f:SourceFile) WHERE f.changeCount IS NOT NULL AND f.existsAtHead RETURN f.path AS path, f.changeCount AS changes ORDER BY f.changeCount DESC LIMIT 5",
+    "orderSensitive": true,
+    "requires": ["SourceFile"]
+  },
+  {
+    "id": "max-cochange",
+    "question": "What is the highest number of times any two files changed together?",
+    "cypher": "MATCH (:SourceFile)-[r:CO_CHANGED_WITH]-(:SourceFile) RETURN max(r.count) AS maxCount",
+    "orderSensitive": false,
+    "requires": ["SourceFile"]
+  },
+  {
+    "id": "count-defined-types",
+    "question": "How many types are defined in the source files?",
+    "cypher": "MATCH (:SourceFile)-[:DEFINES]->(t:Type) RETURN count(DISTINCT t) AS total",
+    "orderSensitive": false,
+    "requires": ["SourceFile", "Type"]
+  },
+  {
+    "id": "interfaces",
+    "question": "What are the simple names of the interfaces defined in the project?",
+    "cypher": "MATCH (:SourceFile)-[:DEFINES]->(t:Type) WHERE t.kind = 'INTERFACE' RETURN t.name AS name",
+    "orderSensitive": false,
+    "requires": ["Type"]
+  },
+  {
+    "id": "static-methods",
+    "question": "Which method names are static?",
+    "cypher": "MATCH (m:Method) WHERE m.isStatic = true RETURN DISTINCT m.name AS name",
+    "orderSensitive": false,
+    "requires": ["Method"]
+  },
+  {
+    "id": "largest-class",
+    "question": "What is the simple name of the class with the most methods, and how many methods does it have?",
+    "cypher": "MATCH (:SourceFile)-[:DEFINES]->(t:Type)-[:HAS_METHOD]->(m:Method) RETURN t.name AS name, count(m) AS methods ORDER BY methods DESC LIMIT 1",
+    "orderSensitive": true,
+    "requires": ["Type"]
+  },
+  {
+    "id": "annotations",
+    "question": "Which annotations are used in the code?",
+    "cypher": "MATCH (a:Annotation) RETURN DISTINCT a.name AS name",
+    "orderSensitive": false,
+    "requires": ["Annotation"]
+  },
+  {
+    "id": "packages",
+    "question": "List all packages in the project.",
+    "cypher": "MATCH (p:Package) RETURN p.name AS name",
+    "orderSensitive": false,
+    "requires": ["Package"]
+  },
+  {
+    "id": "module-count",
+    "question": "How many Maven modules are there?",
+    "cypher": "MATCH (m:Module) RETURN count(m) AS total",
+    "orderSensitive": false,
+    "requires": ["Module"]
+  },
+  {
+    "id": "external-deps",
+    "question": "Which external libraries does the project depend on?",
+    "cypher": "MATCH (:Module)-[:DEPENDS_ON]->(l:ExternalLib) RETURN DISTINCT l.artifactId AS artifactId",
+    "orderSensitive": false,
+    "requires": ["Module", "ExternalLib"]
+  },
+  {
+    "id": "importer-implementations",
+    "question": "Which types implement the Importer interface?",
+    "cypher": "MATCH (t:Type)-[:IMPLEMENTS]->(:Type {name:'Importer'}) RETURN t.name AS name",
+    "orderSensitive": false,
+    "requires": ["Type"]
+  },
+  {
+    "id": "mr-count",
+    "question": "How many merge requests are there?",
+    "cypher": "MATCH (mr:MergeRequest) RETURN count(mr) AS total",
+    "orderSensitive": false,
+    "requires": ["MergeRequest"]
+  },
+  {
+    "id": "top-issues-by-commits",
+    "question": "What are the top 5 issues by number of commits that reference them?",
+    "cypher": "MATCH (c:Commit)-[:REFERENCES]->(i:Issue) RETURN i.key AS key, count(c) AS commits ORDER BY commits DESC LIMIT 5",
+    "orderSensitive": true,
+    "requires": ["Issue"]
+  },
+  {
+    "id": "neo4jservice-methods",
+    "question": "How many methods does the Neo4jService class declare?",
+    "cypher": "MATCH (t:Type {name:'Neo4jService'})-[:HAS_METHOD]->(m:Method) RETURN count(m) AS methods",
+    "orderSensitive": false,
+    "requires": ["Type"]
+  }
+]

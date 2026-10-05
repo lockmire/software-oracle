@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Oracle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(-10px); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(139,92,246,0.45)); }
+            50%       { filter: drop-shadow(0 0 26px rgba(139,92,246,0.85)); }
+        }
+        @keyframes blink {
+            0%, 87%, 100% { transform: scaleY(1); }
+            92%           { transform: scaleY(0.07); }
+        }
+        @keyframes led-pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.35; }
+        }
+        @keyframes card-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(139,92,246,0.12), 0 25px 60px rgba(0,0,0,0.55); }
+            50%       { box-shadow: 0 0 55px rgba(139,92,246,0.28), 0 25px 60px rgba(0,0,0,0.55); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .robot-float  { animation: float 3.8s ease-in-out infinite; }
+        .robot-glow   { animation: glow-pulse 3.8s ease-in-out infinite; }
+        .eye-group    { transform-box: fill-box; transform-origin: center; animation: blink 5.5s ease-in-out infinite; }
+        .led-g        { animation: led-pulse 1.9s ease-in-out infinite; }
+        .led-p        { animation: led-pulse 1.9s ease-in-out 0.63s infinite; }
+        .led-b        { animation: led-pulse 1.9s ease-in-out 1.26s infinite; }
+        .card         { animation: card-glow 3.8s ease-in-out infinite; }
+        .spinner      { animation: spin 0.9s linear infinite; }
+        .fade-in      { animation: fade-in 0.4s ease forwards; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 flex items-center justify-center p-4">
+
+<div class="w-full max-w-3xl">
+
+    <!-- Title -->
+    <div class="text-center mb-8">
+        <h1 class="text-5xl font-bold text-white tracking-tight">
+            Software <span class="text-purple-400">Oracle</span>
+        </h1>
+        <p class="text-indigo-300/50 mt-2 text-xs tracking-widest uppercase">Your intelligent codebase guide</p>
+    </div>
+
+    <!-- Card -->
+    <div class="card bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+
+        <!-- Robot mascot -->
+        <div class="flex justify-center mb-7">
+            <div class="robot-float robot-glow">
+                <svg viewBox="0 0 200 272" width="168" height="228" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="gHead" cx="35%" cy="28%" r="68%">
+                            <stop offset="0%"   stop-color="#9f7aea"/>
+                            <stop offset="100%" stop-color="#5b21b6"/>
+                        </radialGradient>
+                        <radialGradient id="gBody" cx="35%" cy="22%" r="72%">
+                            <stop offset="0%"   stop-color="#8b5cf6"/>
+                            <stop offset="100%" stop-color="#4c1d95"/>
+                        </radialGradient>
+                        <radialGradient id="gArm" cx="38%" cy="22%" r="68%">
+                            <stop offset="0%"   stop-color="#7c3aed"/>
+                            <stop offset="100%" stop-color="#3b0764"/>
+                        </radialGradient>
+                        <radialGradient id="gEye" cx="38%" cy="32%" r="62%">
+                            <stop offset="0%"   stop-color="#c4b5fd"/>
+                            <stop offset="100%" stop-color="#6d28d9"/>
+                        </radialGradient>
+                        <filter id="ledGlow" x="-60%" y="-60%" width="220%" height="220%">
+                            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- ── Bow / ribbon ─────────────────────────── -->
+                    <path d="M89,7 L100,15 L89,23 Q80,15 89,7Z"  fill="#f472b6"/>
+                    <path d="M111,7 L100,15 L111,23 Q120,15 111,7Z" fill="#ec4899"/>
+                    <circle cx="100" cy="15" r="3.8" fill="#fbb6ce"/>
+
+                    <!-- Antenna stem -->
+                    <rect x="98.5" y="15" width="3" height="20" rx="1.5" fill="#a78bfa"/>
+
+                    <!-- ── Head ──────────────────────────────────── -->
+                    <rect x="57"  y="33" width="86" height="70" rx="19" fill="url(#gHead)"/>
+                    <!-- soft highlight -->
+                    <rect x="63"  y="37" width="33" height="20" rx="10" fill="white" opacity="0.07"/>
+
+                    <!-- Face screen -->
+                    <rect x="67" y="43" width="66" height="54" rx="11" fill="#1e1b4b"/>
+                    <!-- screen glare -->
+                    <rect x="72" y="47" width="20" height="10" rx="5"  fill="white" opacity="0.05"/>
+
+                    <!-- ── Left eye ──────────────────────────────── -->
+                    <g class="eye-group">
+                        <circle cx="88" cy="67" r="12"  fill="url(#gEye)"/>
+                        <circle cx="88" cy="67" r="7"   fill="#2d1b69"/>
+                        <circle cx="88" cy="67" r="4.5" fill="#4c1d95"/>
+                        <circle cx="85" cy="64" r="2"   fill="white" opacity="0.9"/>
+                        <circle cx="91" cy="71" r="1"   fill="white" opacity="0.38"/>
+                    </g>
+                    <!-- left lashes -->
+                    <line x1="80" y1="56" x2="77" y2="51" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+                    <line x1="87" y1="54" x2="86" y2="49" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+                    <line x1="93" y1="55" x2="95" y2="50" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+
+                    <!-- ── Right eye ─────────────────────────────── -->
+                    <g class="eye-group">
+                        <circle cx="112" cy="67" r="12"  fill="url(#gEye)"/>
+                        <circle cx="112" cy="67" r="7"   fill="#2d1b69"/>
+                        <circle cx="112" cy="67" r="4.5" fill="#4c1d95"/>
+                        <circle cx="109" cy="64" r="2"   fill="white" opacity="0.9"/>
+                        <circle cx="115" cy="71" r="1"   fill="white" opacity="0.38"/>
+                    </g>
+                    <!-- right lashes -->
+                    <line x1="104" y1="56" x2="101" y2="51" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+                    <line x1="111" y1="54" x2="110" y2="49" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+                    <line x1="117" y1="55" x2="119" y2="50" stroke="#f472b6" stroke-width="1.9" stroke-linecap="round"/>
+
+                    <!-- Blush -->
+                    <ellipse cx="76"  cy="80" rx="9" ry="6" fill="#f472b6" opacity="0.28"/>
+                    <ellipse cx="124" cy="80" rx="9" ry="6" fill="#f472b6" opacity="0.28"/>
+
+                    <!-- Smile -->
+                    <path d="M87,84 Q100,96 113,84" stroke="#a78bfa" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+                    <!-- ── Neck ───────────────────────────────────── -->
+                    <rect x="88" y="103" width="24" height="18" rx="5" fill="#5b21b6"/>
+
+                    <!-- ── Body ──────────────────────────────────── -->
+                    <rect x="46" y="121" width="108" height="90" rx="20" fill="url(#gBody)"/>
+                    <!-- body highlight -->
+                    <rect x="52" y="125" width="38" height="18" rx="9" fill="white" opacity="0.06"/>
+
+                    <!-- Chest panel -->
+                    <rect x="70" y="134" width="60" height="47" rx="10" fill="#1e1b4b" opacity="0.82"/>
+
+                    <!-- LED indicators -->
+                    <circle class="led-g" cx="88"  cy="151" r="5.5" fill="#34d399" filter="url(#ledGlow)"/>
+                    <circle class="led-p" cx="100" cy="151" r="5.5" fill="#f472b6" filter="url(#ledGlow)"/>
+                    <circle class="led-b" cx="112" cy="151" r="5.5" fill="#60a5fa" filter="url(#ledGlow)"/>
+
+                    <!-- Power bar -->
+                    <rect x="79" y="165" width="42" height="6" rx="3" fill="#0f0a2e"/>
+                    <rect x="79" y="165" width="30" height="6" rx="3" fill="#a78bfa"/>
+
+                    <!-- ── Arms ───────────────────────────────────── -->
+                    <rect x="15"  y="124" width="31" height="70" rx="14" fill="url(#gArm)"/>
+                    <rect x="154" y="124" width="31" height="70" rx="14" fill="url(#gArm)"/>
+
+                    <!-- Hands -->
+                    <circle cx="30"  cy="198" r="15" fill="url(#gHead)"/>
+                    <circle cx="170" cy="198" r="15" fill="url(#gHead)"/>
+                    <circle cx="26"  cy="194" r="4"  fill="white" opacity="0.09"/>
+                    <circle cx="166" cy="194" r="4"  fill="white" opacity="0.09"/>
+
+                    <!-- ── Legs ───────────────────────────────────── -->
+                    <rect x="67"  y="211" width="29" height="53" rx="13" fill="#5b21b6"/>
+                    <rect x="104" y="211" width="29" height="53" rx="13" fill="#5b21b6"/>
+
+                    <!-- Feet -->
+                    <rect x="58"  y="254" width="45" height="17" rx="9" fill="#4c1d95"/>
+                    <rect x="97"  y="254" width="45" height="17" rx="9" fill="#4c1d95"/>
+                    <rect x="63"  y="256" width="17" height="6"  rx="3" fill="white" opacity="0.07"/>
+                    <rect x="102" y="256" width="17" height="6"  rx="3" fill="white" opacity="0.07"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Response area -->
+        <div id="response-area"
+             class="min-h-[120px] bg-black/25 rounded-2xl border border-white/[0.06] mb-5 flex items-center justify-center p-5">
+
+            <p id="state-placeholder" class="text-slate-500 text-sm italic text-center">
+                Ask me anything about your codebase&hellip;
+            </p>
+
+            <div id="state-loading" class="hidden flex-col items-center gap-3">
+                <svg class="spinner w-7 h-7 text-purple-400" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                            stroke-dasharray="40" stroke-dashoffset="10" opacity="0.25"/>
+                    <path d="M12 2a10 10 0 0 1 10 10"
+                          stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span class="text-purple-300/80 text-sm">Consulting the oracle&hellip;</span>
+            </div>
+
+            <div id="state-response" class="hidden w-full text-sm text-slate-200 leading-relaxed fade-in"></div>
+        </div>
+
+        <!-- Input row -->
+        <div class="flex gap-2">
+            <input
+                id="question-input"
+                type="text"
+                placeholder="e.g. Which file changed the most?"
+                class="flex-1 bg-black/30 text-white placeholder-slate-600 border border-white/10
+                       rounded-xl px-4 py-3 text-sm
+                       focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40
+                       transition-all"
+            />
+            <button
+                id="ask-btn"
+                class="bg-purple-600 hover:bg-purple-500 active:bg-purple-700 disabled:opacity-40
+                       text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap"
+            >
+                Ask
+            </button>
+        </div>
+
+        <!-- Suggestion chips -->
+        <div class="mt-4 flex flex-wrap gap-2 items-center">
+            <span class="text-slate-600 text-xs">Try:</span>
+            <button class="suggestion text-xs text-slate-400 bg-white/5 hover:bg-white/10
+                           border border-white/10 rounded-lg px-3 py-1.5 transition-colors">
+                Who committed the most?
+            </button>
+            <button class="suggestion text-xs text-slate-400 bg-white/5 hover:bg-white/10
+                           border border-white/10 rounded-lg px-3 py-1.5 transition-colors">
+                Most modified files
+            </button>
+            <button class="suggestion text-xs text-slate-400 bg-white/5 hover:bg-white/10
+                           border border-white/10 rounded-lg px-3 py-1.5 transition-colors">
+                List all Java types
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-slate-700 text-xs mt-6">Powered by Neo4j knowledge graph</p>
+</div>
+
+<script>
+    const inputEl      = document.getElementById('question-input');
+    const askBtn       = document.getElementById('ask-btn');
+    const statePlaceholder = document.getElementById('state-placeholder');
+    const stateLoading     = document.getElementById('state-loading');
+    const stateResponse    = document.getElementById('state-response');
+    const responseArea     = document.getElementById('response-area');
+
+    function setState(name, html) {
+        statePlaceholder.classList.toggle('hidden', name !== 'placeholder');
+        stateLoading.classList.toggle('hidden',     name !== 'loading');
+        stateResponse.classList.toggle('hidden',    name !== 'response');
+
+        stateLoading.style.display = name === 'loading' ? 'flex' : '';
+        responseArea.style.alignItems = name === 'response' ? 'start' : 'center';
+
+        if (name === 'response') {
+            stateResponse.innerHTML = html;
+            stateResponse.classList.remove('fade-in');
+            void stateResponse.offsetWidth; // force reflow to restart animation
+            stateResponse.classList.add('fade-in');
+        }
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, c =>
+            ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+        );
+    }
+
+    function renderTable(columns, rows) {
+        if (!rows || rows.length === 0) return '';
+        const header = columns.map(c =>
+            `<th class="text-left text-xs font-semibold text-purple-300 px-3 py-2 border-b border-white/10">${escapeHtml(c)}</th>`
+        ).join('');
+        const body = rows.slice(0, 50).map(r =>
+            '<tr class="hover:bg-white/[0.03]">' + columns.map(c => {
+                const v = r[c];
+                const s = (v === null || v === undefined) ? '' :
+                          (typeof v === 'object') ? JSON.stringify(v) : String(v);
+                return `<td class="text-xs text-slate-300 px-3 py-1.5 border-b border-white/5 font-mono">${escapeHtml(s)}</td>`;
+            }).join('') + '</tr>'
+        ).join('');
+        const note = rows.length > 50
+            ? `<p class="text-xs text-slate-500 mt-2">Showing first 50 of ${rows.length} rows.</p>`
+            : '';
+        return `
+            <div class="mt-3 overflow-auto max-h-72 rounded-lg border border-white/10">
+                <table class="w-full">
+                    <thead class="bg-white/[0.04] sticky top-0">${`<tr>${header}</tr>`}</thead>
+                    <tbody>${body}</tbody>
+                </table>
+            </div>${note}`;
+    }
+
+    function renderCypherDetails(cypher) {
+        return `
+            <details class="mt-3 group">
+                <summary class="text-xs text-slate-500 hover:text-purple-300 cursor-pointer select-none">
+                    Show generated Cypher
+                </summary>
+                <pre class="mt-2 text-xs text-purple-200/90 bg-black/40 border border-white/5 rounded-lg p-3 overflow-auto whitespace-pre-wrap font-mono">${escapeHtml(cypher)}</pre>
+            </details>`;
+    }
+
+    async function askOracle() {
+        const question = inputEl.value.trim();
+        if (!question) return;
+
+        askBtn.disabled = true;
+        setState('loading');
+
+        try {
+            const res = await fetch('/api/ask', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ question }),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                setState('response', `
+                    <p class="text-red-400 text-sm">${escapeHtml(data.error || 'Request failed')}</p>
+                `);
+                return;
+            }
+
+            const prose = `<p class="text-slate-200">${escapeHtml(data.answer || '').replace(/\n/g, '<br/>')}</p>`;
+            const table = data.type === 'table' ? renderTable(data.columns, data.rows) : '';
+            const debug = data.cypher ? renderCypherDetails(data.cypher) : '';
+            setState('response', prose + table + debug);
+
+        } catch (e) {
+            setState('response', `
+                <p class="text-red-400 text-sm">Network error — is the server running?</p>
+                <p class="text-slate-600 text-xs mt-1">${escapeHtml(e.message || '')}</p>
+            `);
+        } finally {
+            askBtn.disabled = false;
+        }
+    }
+
+    askBtn.addEventListener('click', askOracle);
+    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') askOracle(); });
+
+    document.querySelectorAll('.suggestion').forEach(btn =>
+        btn.addEventListener('click', () => { inputEl.value = btn.textContent.trim(); inputEl.focus(); })
+    );
+</script>
+</body>
+</html>
